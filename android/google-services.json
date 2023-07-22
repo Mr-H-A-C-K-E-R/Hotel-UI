@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "982265954065",
+    "project_id": "intern-57030",
+    "storage_bucket": "intern-57030.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982265954065:android:00500c0315365bde3256b0",
+        "android_client_info": {
+          "package_name": "com.mine.intern"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982265954065-fd1bf8lo4hl6obb00634iorbpkuj47f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDee8z9Bjd7fmBjgmSPazerx_5Hu5x9NCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982265954065-fd1bf8lo4hl6obb00634iorbpkuj47f0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "982265954065-05qe1t9pmna0eacu7si93sb8kgr6lhk4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mine.intern"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intern/home_screen.dart';
 import 'package:intern/screen2.dart';
+import 'package:intern/splash.dart';
+import 'package:intern/login.dart';
+import 'package:intern/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -21,8 +26,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
   return MaterialApp(
     title: "Intern App",
-    initialRoute: HomeScreen.id,
+    initialRoute: Splash.id,
     routes: {
+      Splash.id : (context) => Splash(),
+      Login.id : (context) => Login(),
+      SignUp.id : (context) => SignUp(),
       HomeScreen.id : (context) => HomeScreen(),
       Screen2.id : (context) => Screen2(),
     },
