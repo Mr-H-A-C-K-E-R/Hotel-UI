@@ -1,9 +1,12 @@
-import 'dart:ffi';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intern/auth/login_with_phone_number.dart';
 import 'package:intern/home_screen.dart';
-import 'package:intern/signup.dart';
+import 'package:intern/auth/signup.dart';
+import 'package:intern/utils/utils.dart';
+import 'package:intern/splash_services.dart';
 
 class Login extends StatefulWidget {
   static const String id = 'Login';
@@ -14,12 +17,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool loading = false;
   Color visibilityColor = Color(0xFF62a6f7);
   bool visibility = true;
   int count = 1;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+
 
   @override
   void dispose() {
@@ -28,13 +34,34 @@ class _LoginState extends State<Login> {
     passwordController.dispose();
   }
 
+  void login() {
+    setState(() {
+      loading =true;
+    });
+    _auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text.toString()).then((value){
+          setState(() {
+            loading = false;
+          });
+          Utils().toastMessage(value.user!.email.toString());
+          var login = SplashServices().isLogin(context);
+          if(login){Navigator.pushNamed(context, HomeScreen.id);}
+    }).onError((error, stackTrace){
+      setState(() {
+        loading = false;
+      });
+      Utils().toastMessage(error.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         SystemNavigator.pop();
         return true;
       },
@@ -95,20 +122,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // const Center(
-                //   child: Text(
-                //     'Lorem ipsum dolor sit amet, \nconsectetur adipiscing elit',
-                //     textAlign: TextAlign.center,
-                //     style: TextStyle(
-                //       fontSize: 16,
-                //       fontFamily: 'Rubik Regular',
-                //       color: Color(0xff4C5980),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -143,8 +156,8 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Enter email';
                             }
                             return null;
@@ -167,25 +180,27 @@ class _LoginState extends State<Login> {
                               color: Color(0xff323F4B),
                             ),
                             suffixIcon: TextButton(
-                              onPressed: (){
-                                setState(() {
-                                  if(count%2==0) {
-                                    visibility = false;
-                                    visibilityColor = Colors.black87;
-                                    count++;
-                                  }
-                                  else{
-                                    visibility = true;
-                                    visibilityColor = Color(0xFF62a6f7);
-                                    count++;
-                                  }
-                                });
-                              },
+                                onPressed: () {
+                                  setState(() {
+                                    if (count % 2 == 0) {
+                                      visibility = false;
+                                      visibilityColor = Colors.black87;
+                                      count++;
+                                    } else {
+                                      visibility = true;
+                                      visibilityColor = Color(0xFF62a6f7);
+                                      count++;
+                                    }
+                                  });
+                                },
                                 // style: ElevatedButton.styleFrom(
                                 //   elevation: 0,
                                 //   backgroundColor: Colors.transparent,
                                 // ),
-                                child: Icon(Icons.visibility_off_outlined,color: visibilityColor,)),
+                                child: Icon(
+                                  Icons.visibility_off_outlined,
+                                  color: visibilityColor,
+                                )),
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: Color(0xffE4E7EB),
@@ -199,8 +214,8 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Enter password';
                             }
                             return null;
@@ -213,21 +228,21 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: screenHeight / 12,
                 ),
-                TextButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushReplacementNamed(context, HomeScreen.id);
-                    }
+                Container(
+                  height: 50,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF62a6f7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        login();
+                      }
                     },
-                  child: Container(
-                    height: 50,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF62a6f7),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     child: Center(
-                      child: Text(
+                      child: loading ? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):Text(
                         'Log in',
                         style: TextStyle(
                             fontSize: 18,
@@ -255,7 +270,7 @@ class _LoginState extends State<Login> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, SignUp.id);
+                        Navigator.pushNamed(context, SignUp.id);
                       },
                       child: const Text(
                         ' Sign Up',
@@ -268,7 +283,32 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ],
-                )
+                ),
+                Divider(
+                  thickness: 1,
+                  indent: screenWidth*0.05,
+                  endIndent:screenWidth*0.05 ,
+                ),
+                InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, LoginWithPhoneNumber.id );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: screenWidth/2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: Colors.black),
+                    ),
+                    child:Center(
+                      child: Text('Login with phone', style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Rubik Medium',
+                        color: Color(0xff4C5980),
+                      ),),
+                    )
+                  ),
+                ),
               ],
             ),
           ),

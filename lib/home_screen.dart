@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intern/contain.dart';
-import 'package:intern/price.dart';
+import 'package:intern/Custom/contain.dart';
+import 'package:intern/Custom/price.dart';
 import 'package:intern/screen2.dart';
-import 'package:intern/star.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intern/Custom/star.dart';
+import 'package:intern/utils/utils.dart';
+import 'package:intern/auth/login.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'HomeScreen';
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
 
+
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -34,21 +40,40 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.black87,
                           fontSize: 35),
                     ),
-                    SizedBox(
-                      width: 130,
-                    ),
+                    SizedBox(width: screenWidth/6),
                     ElevatedButton(
                       onPressed: () {},
-                      child: const Icon(
-                        Icons.search_outlined,
-                        size: 30,
-                        color: Colors.black87,
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         elevation: 15,
                         shape: const CircleBorder(),
                         padding: const EdgeInsets.all(12),
+                      ),
+                      child: const Icon(
+                        Icons.search_outlined,
+                        size: 30,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(width: screenWidth/30,),
+                    ElevatedButton(
+                      onPressed: () {
+                        auth.signOut().then((value){
+                          Navigator.pushReplacementNamed(context, Login.id);
+                        }).onError((error, stackTrace){
+                          Utils().toastMessage(error.toString());
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        elevation: 15,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(12),
+                      ),
+                      child: const Icon(
+                        Icons.logout_rounded,
+                        size: 30,
+                        color: Colors.black87,
                       ),
                     ),
                   ],
@@ -110,18 +135,14 @@ class HomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
-                    // const SizedBox(
-                    //   width: 120,
-                    // ),
-                    Align(
-                      widthFactor: MediaQuery.of(context).devicePixelRatio,
-                      alignment:Alignment.centerRight,
-                      child: Text(
-                        "See all",
-                        textAlign: TextAlign.end,
-                        style:
-                            TextStyle(fontSize: 17, color: Colors.amber.shade800),
-                      ),
+                    SizedBox(
+                      width: screenWidth/4,
+                    ),
+                    Text(
+                      "See all",
+                      textAlign: TextAlign.end,
+                      style:
+                          TextStyle(fontSize: 17, color: Colors.amber.shade800),
                     ),
                   ],
                 ),
@@ -238,7 +259,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width-31,
                         child: Stack(
                           children: <Widget>[
@@ -256,10 +277,10 @@ class HomeScreen extends StatelessWidget {
                               top:10,
                               left:10,
                               child:Container(
-                                child: const Center(child: Text("25% OFF",style: TextStyle(color: Colors.white,fontSize: 13),)),
                                 width: 60,
                                 height: 30,
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.deepOrange.shade300,),
+                                child: const Center(child: Text("25% OFF",style: TextStyle(color: Colors.white,fontSize: 13),)),
                               ),
                             ),
                             const Positioned(

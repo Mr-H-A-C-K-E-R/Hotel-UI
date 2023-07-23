@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intern/home_screen.dart';
-import 'package:intern/signup.dart';
-import 'package:intern/login.dart';
+import 'package:intern/auth/signup.dart';
+import 'package:intern/auth/login.dart';
+import 'package:intern/utils/utils.dart';
 
 class SignUp extends StatefulWidget {
   static const String id = 'SignUp';
@@ -14,21 +15,43 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  Color visibilityColor = Color(0xFF62a6f7);
+  bool loading = false;
+  Color visibilityColor = const Color(0xFF62a6f7);
   bool visibility = true;
   int count = 1;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-
   FirebaseAuth _auth = FirebaseAuth.instance;
-
+// Dispose method to dispose the email and password after signup.
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+  }
+
+
+  void signUp(){
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      _auth.createUserWithEmailAndPassword(
+          email: emailController.text.toString(),
+          password: passwordController.text.toString()).then((value){
+        setState(() {
+          loading = false;
+        });
+      }).onError((error, stackTrace){
+        Utils().toastMessage(error.toString());
+        setState(() {
+          loading = false;
+        });
+      });
+      // Navigator.pushReplacementNamed(context, HomeScreen.id);
+    }
   }
 
   @override
@@ -127,8 +150,8 @@ class _SignUpState extends State<SignUp> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return 'Enter email';
                           }
                           return null;
@@ -151,21 +174,23 @@ class _SignUpState extends State<SignUp> {
                             color: Color(0xff323F4B),
                           ),
                           suffixIcon: TextButton(
-                              onPressed: (){
+                              onPressed: () {
                                 setState(() {
-                                  if(count%2==0) {
+                                  if (count % 2 == 0) {
                                     visibility = false;
                                     visibilityColor = Colors.black87;
                                     count++;
-                                  }
-                                  else{
+                                  } else {
                                     visibility = true;
-                                    visibilityColor = Color(0xFF62a6f7);
+                                    visibilityColor = const Color(0xFF62a6f7);
                                     count++;
                                   }
                                 });
                               },
-                              child: Icon(Icons.visibility_off_outlined,color: visibilityColor,)),
+                              child: Icon(
+                                Icons.visibility_off_outlined,
+                                color: visibilityColor,
+                              )),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Color(0xffE4E7EB),
@@ -179,8 +204,8 @@ class _SignUpState extends State<SignUp> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return 'Enter password';
                           }
                           return null;
@@ -193,22 +218,20 @@ class _SignUpState extends State<SignUp> {
               SizedBox(
                 height: screenHeight / 12,
               ),
-              TextButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _auth.createUserWithEmailAndPassword(email: emailController.text.toString(), password: passwordController.text.toString());
-                   // Navigator.pushReplacementNamed(context, HomeScreen.id);
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF62a6f7),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
+              Container(
+                margin: EdgeInsets.zero,
+                height: 50,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF62a6f7),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    signUp();
+                  },
+                  child:  Center(
+                    child: loading ? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):Text(
                       'Sign Up',
                       style: TextStyle(
                           fontSize: 18,

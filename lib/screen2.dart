@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intern/contain.dart';
+import 'package:intern/Custom/contain.dart';
+import 'package:intern/Custom/price.dart';
 import 'package:intern/home_screen.dart';
-import 'package:intern/price.dart';
-import 'package:intern/star.dart';
+import 'package:intern/Custom/star.dart';
 import 'package:readmore/readmore.dart';
 
 class Screen2 extends StatelessWidget {
