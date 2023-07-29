@@ -184,7 +184,7 @@ class _LoginState extends State<Login> {
                                   setState(() {
                                     if (count % 2 == 0) {
                                       visibility = false;
-                                      visibilityColor = Colors.black87;
+                                      visibilityColor = Color(0xff4C5980);
                                       count++;
                                     } else {
                                       visibility = true;
@@ -260,7 +260,7 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Dont have an account?',
+                      "Don't have an account?",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -297,8 +297,8 @@ class _LoginState extends State<Login> {
                     height: 50,
                     width: screenWidth/2,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Color(0xff4C5980)),
                     ),
                     child:Center(
                       child: Text('Login with phone', style: TextStyle(

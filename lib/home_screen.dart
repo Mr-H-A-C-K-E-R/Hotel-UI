@@ -57,6 +57,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(width: screenWidth/30,),
                     ElevatedButton(
+                      onLongPress: (){
+
+                      },
                       onPressed: () {
                         auth.signOut().then((value){
                           Navigator.pushReplacementNamed(context, Login.id);

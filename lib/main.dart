@@ -7,7 +7,6 @@ import 'package:intern/splash.dart';
 import 'package:intern/auth/login.dart';
 import 'package:intern/auth/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intern/utils/post_screen.dart';
 
 Future<void> main() async{
@@ -34,13 +33,13 @@ class MyApp extends StatelessWidget {
     title: "Intern App",
     initialRoute: Splash.id,
     routes: {
-      Splash.id : (context) => Splash(),
-      Login.id : (context) => Login(),
-      LoginWithPhoneNumber.id: (context) => LoginWithPhoneNumber(),
-      SignUp.id : (context) => SignUp(),
+      Splash.id : (context) => const Splash(),
+      Login.id : (context) => const Login(),
+      LoginWithPhoneNumber.id: (context) => const LoginWithPhoneNumber(),
+      SignUp.id : (context) => const SignUp(),
       HomeScreen.id : (context) => HomeScreen(),
-      Screen2.id : (context) => Screen2(),
-      PostScreen.id : (context) => PostScreen(),
+      Screen2.id : (context) => const Screen2(),
+      PostScreen.id : (context) => const PostScreen(),
     },
 
     // home: HomeScreen(),
