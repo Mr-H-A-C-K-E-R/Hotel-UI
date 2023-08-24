@@ -1,11 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intern/home_screen.dart';
 import 'package:intern/auth/login.dart';
 import 'package:intern/splash_services.dart';
-import 'package:intern/utils/post_screen.dart';
+import 'package:intern/Posts/post_screen.dart';
 
 class Splash extends StatefulWidget {
   static const String id = 'Splash';
@@ -42,7 +40,7 @@ void initState(){
             isRepeatingAnimation: false,
             onFinished: (){
               if(SplashServices().isLogin(context)) {
-                Navigator.popAndPushNamed(context, HomeScreen.id);
+                Navigator.popAndPushNamed(context, PostScreen.id);
               }
               else{
                 Navigator.popAndPushNamed(context, Login.id);

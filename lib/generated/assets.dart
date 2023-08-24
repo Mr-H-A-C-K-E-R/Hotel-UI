@@ -31,9 +31,10 @@ class Assets {
   static const String libScreen2 = 'lib/screen2.dart';
   static const String libSplash = 'lib/splash.dart';
   static const String libSplashServices = 'lib/splash_services.dart';
+  static const String postsAddPosts = 'lib/Posts/add_posts.dart';
+  static const String postsPostScreen = 'lib/Posts/post_screen.dart';
   static const String screenshots1 = 'lib/Screenshots/1.jpg';
   static const String screenshots2 = 'lib/Screenshots/2.jpg';
-  static const String utilsPostScreen = 'lib/utils/post_screen.dart';
   static const String utilsUtils = 'lib/utils/utils.dart';
 
 }

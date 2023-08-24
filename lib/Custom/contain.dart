@@ -31,7 +31,7 @@ class Contain extends StatelessWidget {
         child: Column(
           children: [
             Icon(img,color: iconColor,size: 30,),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Text(title,style: TextStyle(color: iconColor,fontSize: 16),),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intern/Posts/add_posts.dart';
 import 'package:intern/auth/login_with_phone_number.dart';
 import 'package:intern/home_screen.dart';
 import 'package:intern/screen2.dart';
@@ -7,7 +8,7 @@ import 'package:intern/splash.dart';
 import 'package:intern/auth/login.dart';
 import 'package:intern/auth/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:intern/utils/post_screen.dart';
+import 'package:intern/Posts/post_screen.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
   return MaterialApp(
     theme: ThemeData(
-      useMaterial3: false,
+      useMaterial3: true,
     ),
     themeMode: ThemeMode.light,
     title: "Intern App",
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
       HomeScreen.id : (context) => HomeScreen(),
       Screen2.id : (context) => const Screen2(),
       PostScreen.id : (context) => const PostScreen(),
+      AddPostScreen.id : (context) =>const AddPostScreen(),
     },
 
     // home: HomeScreen(),

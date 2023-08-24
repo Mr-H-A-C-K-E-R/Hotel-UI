@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intern/auth/login_with_phone_number.dart';
-import 'package:intern/home_screen.dart';
 import 'package:intern/auth/signup.dart';
+import 'package:intern/Posts/post_screen.dart';
 import 'package:intern/utils/utils.dart';
 import 'package:intern/splash_services.dart';
 
@@ -18,7 +18,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool loading = false;
-  Color visibilityColor = Color(0xFF62a6f7);
+  Color visibilityColor = const Color(0xFF62a6f7);
   bool visibility = true;
   int count = 1;
   final _formKey = GlobalKey<FormState>();
@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
           });
           Utils().toastMessage(value.user!.email.toString());
           var login = SplashServices().isLogin(context);
-          if(login){Navigator.pushNamed(context, HomeScreen.id);}
+          if(login){Navigator.pushNamed(context, PostScreen.id);}
     }).onError((error, stackTrace){
       setState(() {
         loading = false;
@@ -184,11 +184,11 @@ class _LoginState extends State<Login> {
                                   setState(() {
                                     if (count % 2 == 0) {
                                       visibility = false;
-                                      visibilityColor = Color(0xff4C5980);
+                                      visibilityColor = const Color(0xff4C5980);
                                       count++;
                                     } else {
                                       visibility = true;
-                                      visibilityColor = Color(0xFF62a6f7);
+                                      visibilityColor = const Color(0xFF62a6f7);
                                       count++;
                                     }
                                   });
@@ -242,7 +242,7 @@ class _LoginState extends State<Login> {
                       }
                     },
                     child: Center(
-                      child: loading ? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):Text(
+                      child: loading ? const CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):const Text(
                         'Log in',
                         style: TextStyle(
                             fontSize: 18,
@@ -298,9 +298,9 @@ class _LoginState extends State<Login> {
                     width: screenWidth/2,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: Color(0xff4C5980)),
+                      border: Border.all(color: const Color(0xff4C5980)),
                     ),
-                    child:Center(
+                    child:const Center(
                       child: Text('Login with phone', style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Rubik Medium',

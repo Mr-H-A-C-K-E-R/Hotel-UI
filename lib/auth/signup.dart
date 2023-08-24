@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intern/home_screen.dart';
-import 'package:intern/auth/signup.dart';
 import 'package:intern/auth/login.dart';
 import 'package:intern/utils/utils.dart';
 
@@ -23,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 // Dispose method to dispose the email and password after signup.
   @override
   void dispose() {
@@ -44,6 +41,7 @@ class _SignUpState extends State<SignUp> {
         setState(() {
           loading = false;
         });
+        Navigator.pushReplacementNamed(context, Login.id);
       }).onError((error, stackTrace){
         Utils().toastMessage(error.toString());
         setState(() {
@@ -231,7 +229,7 @@ class _SignUpState extends State<SignUp> {
                     signUp();
                   },
                   child:  Center(
-                    child: loading ? CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):Text(
+                    child: loading ? const CircularProgressIndicator(strokeWidth: 3,color: Colors.white,):const Text(
                       'Sign Up',
                       style: TextStyle(
                           fontSize: 18,

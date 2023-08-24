@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intern/home_screen.dart';
+import 'package:intern/Posts/post_screen.dart';
 import 'package:intern/utils/utils.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
@@ -132,7 +132,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                     );
                     try{
                       await auth.signInWithCredential(credentialToken);
-                      Navigator.pushReplacementNamed(context, HomeScreen.id);
+                      Navigator.pushReplacementNamed(context, PostScreen.id);
                     }catch(e){
                       setState(() {
                         loading = false;
