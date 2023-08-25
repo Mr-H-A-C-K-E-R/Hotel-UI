@@ -19,7 +19,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -31,7 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           elevation:10,
           centerTitle: true,
           scrolledUnderElevation: 10,
-          title: Text("Add Posts"),
+          title: const Text("Add Posts"),
         ),
         body: Column(
           children: [
