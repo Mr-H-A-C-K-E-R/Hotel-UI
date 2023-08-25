@@ -55,7 +55,7 @@ class _PostScreenState extends State<PostScreen> {
               child: TextFormField(
                 controller: searchFilter,
                 decoration: const InputDecoration(
-                  hintText: "Search",
+                  hintText: "Search..",
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (String value){
