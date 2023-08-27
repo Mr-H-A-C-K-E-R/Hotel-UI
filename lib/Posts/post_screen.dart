@@ -16,88 +16,152 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-
   final ref = FirebaseDatabase.instance.ref('Post');
   final auth = FirebaseAuth.instance;
   final searchFilter = TextEditingController();
+  final editController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
         systemStatusBarContrastEnforced: false,
-        systemNavigationBarIconBrightness: Brightness.dark,),
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
       child: Scaffold(
         appBar: AppBar(
-          elevation:10,
+          elevation: 10,
           centerTitle: true,
           scrolledUnderElevation: 10,
           // forceMaterialTransparency: true,
           title: const Text('Post Screen'),
           actions: [
-            IconButton(onPressed: (){
-              auth.signOut().then((value){
-                Navigator.pushReplacementNamed(context, Login.id);
-              }).onError((error, stackTrace){
-                Utils().toastMessage(error.toString());
-              });
-            }, icon: const Icon(Icons.logout_rounded)),
-            const SizedBox(width: 10,)
-          ],
-        ),
-        body: Column(
-          children:[
-            SizedBox(height: screenHeight * 0.01,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: TextFormField(
-                controller: searchFilter,
-                decoration: const InputDecoration(
-                  hintText: "Search..",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (String value){
-                  setState(() {
-
+            IconButton(
+                onPressed: () {
+                  auth.signOut().then((value) {
+                    Navigator.pushReplacementNamed(context, Login.id);
+                  }).onError((error, stackTrace) {
+                    Utils().toastMessage(error.toString());
                   });
                 },
-              ),
-            ),
-
-            Expanded(child: FirebaseAnimatedList(
-              query: ref,
-              defaultChild: const Text("Loading..."),
-              itemBuilder:(context,snapshot,animation,index){
-                // Filtering the data and searching.
-                final title = snapshot.child('title').value.toString();
-                if(searchFilter.text.isEmpty){
-                return ListTile(
-                  title: Text(snapshot.child('title').value.toString()),
-                  subtitle: Text(snapshot.child('id').value.toString()),
-                );
-                }
-                else if(title.toLowerCase().contains(searchFilter.text.toLowerCase().toString())){
-                  return ListTile(
-                    title: Text(snapshot.child('title').value.toString()),
-                    subtitle: Text(snapshot.child('id').value.toString()),
-                  );
-                }
-                else{
-                  return const Text("");
-                }
-              }
-            ),),
-          ]
+                icon: const Icon(Icons.logout_rounded)),
+            const SizedBox(
+              width: 10,
+            )
+          ],
         ),
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          Navigator.pushNamed(context, AddPostScreen.id);
-        },
-        child: const Icon(Icons.add),),
-
+        body: Column(children: [
+          SizedBox(
+            height: screenHeight * 0.01,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextFormField(
+              controller: searchFilter,
+              decoration: const InputDecoration(
+                hintText: "Search",
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (String value) {
+                setState(() {});
+              },
+            ),
+          ),
+          Expanded(
+            child: FirebaseAnimatedList(
+                query: ref,
+                defaultChild: const Text("Loading..."),
+                itemBuilder: (context, snapshot, animation, index) {
+                  // Filtering the data and searching.
+                  final title = snapshot.child('title').value.toString();
+                  if (searchFilter.text.isEmpty) {
+                    return ListTile(
+                      title: Text(snapshot.child('title').value.toString()),
+                      subtitle: Text(snapshot.child('id').value.toString()),
+                      trailing: PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      showEditDialog(title,snapshot.child('id').value.toString());
+                                    },
+                                    leading: Icon(Icons.edit),
+                                    title: Text('Edit'),
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 2,
+                                  child: ListTile(
+                                    leading: Icon(Icons.delete_outline),
+                                    title: Text('Delete'),
+                                  ),
+                                ),
+                              ]),
+                    );
+                  } else if (title
+                      .toLowerCase()
+                      .contains(searchFilter.text.toLowerCase().toString())) {
+                    return ListTile(
+                      title: Text(snapshot.child('title').value.toString()),
+                      subtitle: Text(snapshot.child('id').value.toString()),
+                    );
+                  } else {
+                    return const Text("");
+                  }
+                }),
+          ),
+        ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, AddPostScreen.id);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
+  }
+
+  Future<void> showEditDialog(String title, String id) async {
+    editController.text = title;
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Update'),
+            content: Container(
+              child: TextField(
+                controller: editController,
+                decoration: InputDecoration(
+                  hintText: 'Edit',
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    ref.child(id).update(
+                     { 'title': editController.text.toString(),}
+                    ).then((value) {
+                      Utils().toastMessage('Post Updated');
+                    }).onError((error, stackTrace) {
+                      Utils().toastMessage(error.toString());
+                    });
+                  },
+                  child: Text('Update')),
+            ],
+          );
+        });
   }
 }
 //Stream Builder way
