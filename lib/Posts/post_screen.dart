@@ -97,6 +97,26 @@ class _PostScreenState extends State<PostScreen> {
                                 PopupMenuItem(
                                   value: 2,
                                   child: ListTile(
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+    builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Are you sure ?'),
+                                          actions: [
+                                            TextButton(onPressed: (){
+                                              Navigator.pop(context);
+                                            }, child: Text('Cancel')),
+                                            TextButton(onPressed: (){
+                                              Navigator.pop(context);
+                                              ref.child(snapshot.child('id').value.toString()).remove();
+                                            }, child: Text('Delete'))
+                                          ],
+                                        );
+                                        }
+                                      );
+                                    },
                                     leading: Icon(Icons.delete_outline),
                                     title: Text('Delete'),
                                   ),
