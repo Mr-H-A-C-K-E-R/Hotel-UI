@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "982265954065",
+    "firebase_url": "https://intern-57030-default-rtdb.firebaseio.com",
     "project_id": "intern-57030",
     "storage_bucket": "intern-57030.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "982265954065-dh2opfhov7tvkd42u35g36otk7sgumlq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mine.intern",
+            "certificate_hash": "33bc463bebb8e2ea76f6fe7f1208aa31b438f0b6"
+          }
+        },
         {
           "client_id": "982265954065-fd1bf8lo4hl6obb00634iorbpkuj47f0.apps.googleusercontent.com",
           "client_type": 3

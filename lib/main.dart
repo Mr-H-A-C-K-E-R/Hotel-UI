@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intern/Posts/add_posts.dart';
 import 'package:intern/auth/login_with_phone_number.dart';
+import 'package:intern/firestore/firestore_list_screen.dart';
 import 'package:intern/home_screen.dart';
 import 'package:intern/screen2.dart';
 import 'package:intern/splash.dart';
@@ -9,7 +10,7 @@ import 'package:intern/auth/login.dart';
 import 'package:intern/auth/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intern/Posts/post_screen.dart';
-
+import 'package:intern/firestore/add_firestore_data.dart';
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
       Screen2.id : (context) => const Screen2(),
       PostScreen.id : (context) => const PostScreen(),
       AddPostScreen.id : (context) =>const AddPostScreen(),
+      FireStoreScreen.id : (context) => const FireStoreScreen(),
+      AddFireStoreDataScreen.id : (context) => const AddFireStoreDataScreen(),
     },
 
     // home: HomeScreen(),

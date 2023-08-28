@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intern/auth/login.dart';
+import 'package:intern/firestore/firestore_list_screen.dart';
 import 'package:intern/splash_services.dart';
 import 'package:intern/Posts/post_screen.dart';
 
@@ -40,7 +41,7 @@ void initState(){
             isRepeatingAnimation: false,
             onFinished: (){
               if(SplashServices().isLogin(context)) {
-                Navigator.popAndPushNamed(context, PostScreen.id);
+                Navigator.popAndPushNamed(context, FireStoreScreen.id);
               }
               else{
                 Navigator.popAndPushNamed(context, Login.id);

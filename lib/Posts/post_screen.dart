@@ -20,6 +20,12 @@ class _PostScreenState extends State<PostScreen> {
   final auth = FirebaseAuth.instance;
   final searchFilter = TextEditingController();
   final editController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
