@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:intern/Posts/add_posts.dart';
 import 'package:intern/auth/login.dart';
 import 'package:intern/firestore/add_firestore_data.dart';
 import 'package:intern/utils/utils.dart';
@@ -72,7 +69,7 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if(snapshot.hasError){
-                  return Text("An Error Occured");
+                  return const Text("An Error Occurred");
                 }
                 return Expanded(
             child: ListView.builder(
@@ -102,12 +99,10 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Update'),
-            content: Container(
-              child: TextField(
-                controller: editController,
-                decoration: InputDecoration(
-                  hintText: 'Edit',
-                ),
+            content: TextField(
+              controller: editController,
+              decoration: const InputDecoration(
+                hintText: 'Edit',
               ),
             ),
             actions: [
@@ -115,12 +110,12 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel')),
+                  child: const Text('Cancel')),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Update')),
+                  child: const Text('Update')),
             ],
           );
         });

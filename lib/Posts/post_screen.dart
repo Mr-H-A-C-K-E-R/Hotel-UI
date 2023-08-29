@@ -96,8 +96,8 @@ class _PostScreenState extends State<PostScreen> {
                                       Navigator.pop(context);
                                       showEditDialog(title,snapshot.child('id').value.toString());
                                     },
-                                    leading: Icon(Icons.edit),
-                                    title: Text('Edit'),
+                                    leading: const Icon(Icons.edit),
+                                    title: const Text('Edit'),
                                   ),
                                 ),
                                 PopupMenuItem(
@@ -109,22 +109,22 @@ class _PostScreenState extends State<PostScreen> {
                                         context: context,
     builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text('Are you sure ?'),
+                                          title: const Text('Are you sure ?'),
                                           actions: [
                                             TextButton(onPressed: (){
                                               Navigator.pop(context);
-                                            }, child: Text('Cancel')),
+                                            }, child: const Text('Cancel')),
                                             TextButton(onPressed: (){
                                               Navigator.pop(context);
                                               ref.child(snapshot.child('id').value.toString()).remove();
-                                            }, child: Text('Delete'))
+                                            }, child: const Text('Delete'))
                                           ],
                                         );
                                         }
                                       );
                                     },
-                                    leading: Icon(Icons.delete_outline),
-                                    title: Text('Delete'),
+                                    leading: const Icon(Icons.delete_outline),
+                                    title: const Text('Delete'),
                                   ),
                                 ),
                               ]),
@@ -162,7 +162,7 @@ class _PostScreenState extends State<PostScreen> {
             content: Container(
               child: TextField(
                 controller: editController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Edit',
                 ),
               ),
@@ -172,7 +172,7 @@ class _PostScreenState extends State<PostScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel')),
+                  child: const Text('Cancel')),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -184,7 +184,7 @@ class _PostScreenState extends State<PostScreen> {
                       Utils().toastMessage(error.toString());
                     });
                   },
-                  child: Text('Update')),
+                  child: const Text('Update')),
             ],
           );
         });
