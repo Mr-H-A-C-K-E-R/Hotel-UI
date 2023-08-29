@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -19,6 +20,8 @@ class FireStoreScreen extends StatefulWidget {
 class _FireStoreScreenState extends State<FireStoreScreen> {
   final auth = FirebaseAuth.instance;
   final editController = TextEditingController();
+  final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
+
 
   @override
   void initState() {
@@ -62,16 +65,25 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
             height: screenHeight * 0.01,
           ),
 
-          Expanded(
+          StreamBuilder(
+              stream: fireStore,
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if(snapshot.hasError){
+                  return Text("An Error Occured");
+                }
+                return Expanded(
             child: ListView.builder(
-                itemCount: 10,
+                itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context,index){
               return ListTile(
-                title: Text("Aryan"),
-
+                title: Text(snapshot.data!.docs[index]['title'].toString()),
+                subtitle: Text(snapshot.data!.docs[index]['id'].toString()),
               );
             }),
-          ),
+          );}),
         ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

@@ -19,7 +19,7 @@ class _AddFireStoreDataScreenState extends State<AddFireStoreDataScreen> {
 
   final postController = TextEditingController();
   bool loading = false;
-  final fireStore = FirebaseFirestore.instance.collection('Aryan');
+  final fireStore = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
