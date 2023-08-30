@@ -107,8 +107,7 @@ class _PostScreenState extends State<PostScreen> {
                                       Navigator.pop(context);
                                       showDialog(
                                         context: context,
-    builder: (BuildContext context) {
-                                        return AlertDialog(
+    builder: (BuildContext context) => AlertDialog(
                                           title: const Text('Are you sure ?'),
                                           actions: [
                                             TextButton(onPressed: (){
@@ -119,8 +118,7 @@ class _PostScreenState extends State<PostScreen> {
                                               ref.child(snapshot.child('id').value.toString()).remove();
                                             }, child: const Text('Delete'))
                                           ],
-                                        );
-                                        }
+                                        )
                                       );
                                     },
                                     leading: const Icon(Icons.delete_outline),

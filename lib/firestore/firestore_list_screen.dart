@@ -19,6 +19,8 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
   final editController = TextEditingController();
   final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
 
+  CollectionReference ref = FirebaseFirestore.instance.collection('users');
+  // final ref1 = FirebaseFirestore.instance.collection('users');
 
   @override
   void initState() {
@@ -76,6 +78,16 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context,index){
               return ListTile(
+                onTap: (){
+                  // ref.doc(snapshot.data!.docs[index]['id'].toString()).update({
+                  //   'title': "Just checking that it's working...",
+                  // }).then((value) {
+                  //   Utils().toastMessage('Updated');
+                  // }).onError((error, stackTrace) {
+                  //   Utils().toastMessage(error.toString());
+                  // });
+                  ref.doc(snapshot.data!.docs[index]['id'].toString()).delete();
+                },
                 title: Text(snapshot.data!.docs[index]['title'].toString()),
                 subtitle: Text(snapshot.data!.docs[index]['id'].toString()),
               );
@@ -92,7 +104,7 @@ class _FireStoreScreenState extends State<FireStoreScreen> {
     );
   }
 
-  Future<void> showEditDialog(String title, String id) async {
+  Future<void> showEditDialog(String title, String id, var snapshot) async {
     editController.text = title;
     return showDialog(
         context: context,
