@@ -3,14 +3,17 @@ class Assets {
   Assets._();
 
   static const String authLogin = 'lib/auth/login.dart';
-  static const String authLoginWithPhoneNumber = 'lib/auth/login_with_phone_number.dart';
+  static const String authLoginWithPhoneNumber =
+      'lib/auth/login_with_phone_number.dart';
   static const String authSignup = 'lib/auth/signup.dart';
   static const String authVerifyCode = 'lib/auth/verify_code.dart';
   static const String customContain = 'lib/Custom/contain.dart';
   static const String customPrice = 'lib/Custom/price.dart';
   static const String customStar = 'lib/Custom/star.dart';
-  static const String firestoreAddFirestoreData = 'lib/firestore/add_firestore_data.dart';
-  static const String firestoreFirestoreListScreen = 'lib/firestore/firestore_list_screen.dart';
+  static const String firestoreAddFirestoreData =
+      'lib/firestore/add_firestore_data.dart';
+  static const String firestoreFirestoreListScreen =
+      'lib/firestore/firestore_list_screen.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String images1 = 'lib/images/1.jpeg';
   static const String images2 = 'lib/images/2.jpg';
@@ -35,8 +38,6 @@ class Assets {
   static const String libSplashServices = 'lib/splash_services.dart';
   static const String postsAddPosts = 'lib/Posts/add_posts.dart';
   static const String postsPostScreen = 'lib/Posts/post_screen.dart';
-  static const String screenshots1 = 'lib/Screenshots/1.jpg';
-  static const String screenshots2 = 'lib/Screenshots/2.jpg';
+  static const String postsUploadImage = 'lib/Posts/upload_image.dart';
   static const String utilsUtils = 'lib/utils/utils.dart';
-
 }

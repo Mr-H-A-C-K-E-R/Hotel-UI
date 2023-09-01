@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intern/Posts/add_posts.dart';
+import 'package:intern/Posts/upload_image.dart';
 import 'package:intern/auth/login_with_phone_number.dart';
 import 'package:intern/firestore/firestore_list_screen.dart';
 import 'package:intern/home_screen.dart';
@@ -35,17 +36,18 @@ class MyApp extends StatelessWidget {
     title: "Intern App",
     initialRoute: Splash.id,
     routes: {
-      Splash.id : (context) => const Splash(),
-      Login.id : (context) => const Login(),
-      LoginWithPhoneNumber.id: (context) => const LoginWithPhoneNumber(),
-      SignUp.id : (context) => const SignUp(),
-      HomeScreen.id : (context) => HomeScreen(),
-      Screen2.id : (context) => const Screen2(),
-      PostScreen.id : (context) => const PostScreen(),
-      AddPostScreen.id : (context) =>const AddPostScreen(),
-      FireStoreScreen.id : (context) => const FireStoreScreen(),
-      AddFireStoreDataScreen.id : (context) => const AddFireStoreDataScreen(),
-    },
+        Splash.id: (context) => const Splash(),
+        Login.id: (context) => const Login(),
+        LoginWithPhoneNumber.id: (context) => const LoginWithPhoneNumber(),
+        SignUp.id: (context) => const SignUp(),
+        HomeScreen.id: (context) => HomeScreen(),
+        Screen2.id: (context) => const Screen2(),
+        PostScreen.id: (context) => const PostScreen(),
+        AddPostScreen.id: (context) => const AddPostScreen(),
+        FireStoreScreen.id: (context) => const FireStoreScreen(),
+        AddFireStoreDataScreen.id: (context) => const AddFireStoreDataScreen(),
+        UploadImageScreen.id: (context) => const UploadImageScreen(),
+      },
 
     // home: HomeScreen(),
   );
