@@ -2,11 +2,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intern/Posts/post_screen.dart';
+import 'package:intern/auth/forgot_password.dart';
 import 'package:intern/auth/login_with_phone_number.dart';
 import 'package:intern/auth/signup.dart';
-import 'package:intern/Posts/post_screen.dart';
-import 'package:intern/utils/utils.dart';
 import 'package:intern/splash_services.dart';
+import 'package:intern/utils/utils.dart';
 
 class Login extends StatefulWidget {
   static const String id = 'Login';
@@ -166,7 +167,7 @@ class _LoginState extends State<Login> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
+                            horizontal: 20, vertical: 10),
                         child: TextFormField(
                           obscureText: visibility,
                           keyboardType: TextInputType.visiblePassword,
@@ -225,8 +226,28 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, ForgotPasswordScreen.id);
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Rubik Medium',
+                          color: Color(0xFF62a6f7),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: screenHeight / 12,
+                  height: screenHeight * 0.02,
                 ),
                 Container(
                   height: 50,

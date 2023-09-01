@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String authForgotPassword = 'lib/auth/forgot_password.dart';
   static const String authLogin = 'lib/auth/login.dart';
   static const String authLoginWithPhoneNumber =
       'lib/auth/login_with_phone_number.dart';
